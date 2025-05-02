@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Italbytz.Adapters.Algorithms.AI" Version="9.4.0" />
+        <PackageReference Include="Italbytz.Adapters.Algorithms.AI" Version="9.5.0" />
         <PackageReference Include="Italbytz.Ports.Algorithms.AI" Version="9.1.0"/>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1"/>
         <PackageReference Include="Microsoft.ML" Version="4.0.1"/>
