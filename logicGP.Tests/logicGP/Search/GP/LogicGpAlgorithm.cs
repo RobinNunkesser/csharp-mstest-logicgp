@@ -16,6 +16,7 @@ using Italbytz.Ports.Algorithms.AI.Search.GP.Fitness;
 using Italbytz.Ports.Algorithms.AI.Search.GP.Individuals;
 using Italbytz.Ports.Algorithms.AI.Search.GP.Mutation;
 using Microsoft.ML;
+using Metrics = Italbytz.Adapters.Algorithms.AI.Search.Framework.Metrics;
 
 namespace Italbytz.Adapters.Algorithms.AI.Search.GP;
 

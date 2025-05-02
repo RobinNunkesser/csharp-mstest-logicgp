@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Italbytz.ML;
+using Italbytz.ML.ModelBuilder.Configuration;
 using logicGP.Tests.Util.ML;
 using logicGP.Tests.Util.ML.ModelBuilder.Configuration;
 using Microsoft.ML;
