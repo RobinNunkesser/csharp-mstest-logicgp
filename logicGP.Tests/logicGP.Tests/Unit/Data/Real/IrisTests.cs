@@ -47,15 +47,7 @@ public class IrisTests : RealTests
         var trainer = GetFlRwMacroTrainer(_lookupData.Length);
         SimulateFlRw(trainer, _data, _lookupData);
     }
-
-    [TestMethod]
-    public void SimulateMLNet()
-    {
-        SimulateMLNetOnAllTrainers(DataHelper.DataSet.Iris,
-            "Data/Real/Iris", "Iris",
-            "class", 20, true);
-    }
-
+    
     [TestMethod]
     [TestCategory("FixedSeed")]
     public void TestFlRw()

@@ -5,6 +5,7 @@ using logicGP.Tests.Data.Real;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
 using Microsoft.ML.Data;
+using Microsoft.ML.Transforms;
 
 namespace logicGP.Tests.Unit.Data.Real;
 

@@ -42,15 +42,7 @@ public class HeartDiseaseTests : RealTests
     {
         LogWriter?.Dispose();
     }
-
-    [TestMethod]
-    public void SimulateMLNet()
-    {
-        SimulateMLNetOnAllTrainers(DataHelper.DataSet.HeartDisease,
-            "Data/Real/HeartDisease", "Heart_Disease",
-            "num", 20, true);
-    }
-
+    
     [TestMethod]
     public void SimulateFlRwMacro()
     {

@@ -54,15 +54,7 @@ public class WineQualityTests : RealTests
         var trainer = GetFlRwMacroTrainer(_lookupData.Length);
         SimulateFlRw(trainer, _data, _lookupData);
     }
-
-    [TestMethod]
-    public void SimulateMLNet()
-    {
-        SimulateMLNetOnAllTrainers(DataHelper.DataSet.WineQuality,
-            "Data/Real/WineQuality", "Wine_Quality",
-            "quality", 20, true);
-    }
-
+    
     [TestMethod]
     [TestCategory("FixedSeed")]
     public void TestFlRw()

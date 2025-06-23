@@ -40,17 +40,7 @@ public class BreastCancerWisconsinDiagnosticTests : RealTests
     {
         LogWriter?.Dispose();
     }
-
-    [TestMethod]
-    public void SimulateMLNet()
-    {
-        SimulateMLNetOnAllTrainers(
-            DataHelper.DataSet.BreastCancerWisconsinDiagnostic,
-            "Data/Real/BreastCancerWisconsinDiagnostic",
-            "Breast_Cancer_Wisconsin_Diagnostic_",
-            "Diagnosis", 20, false);
-    }
-
+    
     [TestMethod]
     public void SimulateFlRwMicro()
     {

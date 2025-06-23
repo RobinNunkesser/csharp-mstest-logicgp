@@ -5,7 +5,6 @@ using Italbytz.Adapters.Algorithms.AI.Util;
 using Italbytz.ML;
 using logicGP.Tests.Data.Real;
 using logicGP.Tests.Util;
-using logicGP.Tests.Util.ML;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
 using Microsoft.ML.Data;
@@ -60,60 +59,7 @@ public abstract class RealTests
                 $"{fileName}_seed_{mlSeed}_test.csv"));
         }
     }
-
-    protected void SimulateMLNetOnAllTrainers(DataHelper.DataSet dataSet,
-        string relativeDataPath,
-        string filePrefix, string labelColumn, int trainingTime,
-        bool isMulticlass)
-    {
-        LogWriter = new StreamWriter(LogFile);
-        // LGBM is not available (at least on macOS-ARM and linux-x86)
-        string[] availableTrainers =
-        [
-            "LBFGS", "FASTFOREST", "SDCA", "FASTTREE"
-        ];
-        foreach (var trainer in availableTrainers)
-        {
-            var bestMacroAccuracy = 0.0;
-            var bestMicroAccuracy = 0.0;
-            var bestF1Score = 0.0;
-            var bestAUC = 0.0;
-            var bestAUPRC = 0.0;
-            foreach (var seed in Seeds)
-            {
-                var trainingData = Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    relativeDataPath,
-                    $"{filePrefix}_seed_{seed}_train.csv");
-                var testData = Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    relativeDataPath,
-                    $"{filePrefix}_seed_{seed}_test.csv");
-                string[] trainers = [trainer];
-                var metrics = SimulateMLNet(
-                    dataSet,
-                    trainingData, testData,
-                    labelColumn, trainingTime, trainers, isMulticlass);
-                if (metrics.MacroAccuracy > bestMacroAccuracy)
-                    bestMacroAccuracy = metrics.MacroAccuracy;
-                if (metrics.Accuracy > bestMicroAccuracy)
-                    bestMicroAccuracy = metrics.Accuracy;
-                if (metrics.F1Score > bestF1Score)
-                    bestF1Score = metrics.F1Score;
-                if (metrics.AreaUnderRocCurve > bestAUC)
-                    bestAUC = metrics.AreaUnderRocCurve;
-                if (metrics.AreaUnderPrecisionRecallCurve > bestAUPRC)
-                    bestAUPRC = metrics.AreaUnderPrecisionRecallCurve;
-            }
-
-            Console.WriteLine($"{trainer} MacroAccuracy: {bestMacroAccuracy}");
-            Console.WriteLine($"{trainer} MicroAccuracy: {bestMicroAccuracy}");
-            Console.WriteLine($"{trainer} F1Score: {bestF1Score}");
-            Console.WriteLine($"{trainer} AUC: {bestAUC}");
-            Console.WriteLine($"{trainer} AUPRC: {bestAUPRC}");
-            Console.Clear();
-        }
-    }
+    
 
     protected void SaveCvSplit(
         IDataView data, string fileName)
@@ -262,108 +208,6 @@ public abstract class RealTests
         UpdateAndFilterAccuracies(accuracies, bestMacroaccuracy);
 
         PrintAccuracies(bestMacroaccuracy);
-    }
-
-    protected Metrics SimulateMLNet(DataHelper.DataSet dataSet,
-        string trainingData,
-        string testData,
-        string labelColumn, int trainingTime,
-        string[] trainers, bool isMulticlass)
-    {
-        // Configure a Model Builder configuration
-        var config =
-            DataHelper.GenerateModelBuilderConfig(dataSet, trainingData,
-                labelColumn, trainingTime, trainers);
-        Assert.IsNotNull(config);
-        // Save the configuration
-        var modelFileName = trainingData
-            .Substring(trainingData.LastIndexOf('/') + 1)
-            .Replace("train.csv", "");
-        modelFileName = $"{modelFileName}{trainers[0]}";
-        var configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-            $"{modelFileName}.mbconfig");
-        File.WriteAllText(configPath, config);
-        // Run AutoML
-        RunAutoMLForConfig(modelFileName);
-        CleanUp();
-        var modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-            $"{modelFileName}.mlnet");
-        var mlContext = new MLContext();
-        try
-        {
-            var mlModel = mlContext.Model.Load(modelPath, out _);
-
-            var testDataView = dataSet switch
-            {
-                DataHelper.DataSet.HeartDisease => mlContext.Data
-                    .LoadFromTextFile<HeartDiseaseModelInputOriginal>(
-                        testData,
-                        ',', true),
-                DataHelper.DataSet.Iris => mlContext.Data
-                    .LoadFromTextFile<IrisModelInput>(
-                        testData,
-                        ',', true),
-                DataHelper.DataSet.WineQuality => mlContext.Data
-                    .LoadFromTextFile<WineQualityModelInputOriginal>(
-                        testData,
-                        ',', true),
-                DataHelper.DataSet.BreastCancerWisconsinDiagnostic => mlContext
-                    .Data
-                    .LoadFromTextFile<
-                        BreastCancerWisconsinDiagnosticModelInput>(
-                        testData,
-                        ',', true),
-                _ => throw new ArgumentOutOfRangeException(nameof(dataSet),
-                    dataSet,
-                    null)
-            };
-            var testResult = mlModel.Transform(testDataView);
-            try
-            {
-                var metrics = mlContext.BinaryClassification
-                    .Evaluate(testResult, labelColumn);
-                return new Metrics
-                {
-                    IsBinaryClassification = true,
-                    Accuracy = metrics.Accuracy,
-                    AreaUnderRocCurve = metrics.AreaUnderRocCurve,
-                    F1Score = metrics.F1Score,
-                    AreaUnderPrecisionRecallCurve =
-                        metrics.AreaUnderPrecisionRecallCurve
-                };
-            }
-            catch (Exception e1)
-            {
-                try
-                {
-                    var metrics = mlContext.MulticlassClassification
-                        .Evaluate(testResult, labelColumn);
-                    return new Metrics
-                    {
-                        IsMulticlassClassification = true,
-                        MacroAccuracy = metrics.MacroAccuracy
-                    };
-                }
-                catch (Exception e2)
-                {
-                    Console.WriteLine(
-                        $"Neither binary nor multiclass metrics available for {trainingData} and trainer {trainers[0]}.");
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(
-                $"Error loading model for data set {trainingData} and trainer {trainers[0]}.");
-        }
-
-        return new Metrics
-        {
-            IsBinaryClassification = !isMulticlass,
-            IsMulticlassClassification = isMulticlass,
-            MacroAccuracy = 0.0f,
-            Accuracy = 0.0f
-        };
     }
 
     private void CleanUp()
