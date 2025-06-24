@@ -1,9 +1,8 @@
 using System.Globalization;
 using System.Text;
-using Italbytz.Adapters.Algorithms.AI.Util;
+using Italbytz.AI.Search.GP.SearchSpace;
+using Italbytz.AI.Util;
 using Italbytz.ML;
-using Italbytz.Ports.Algorithms.AI.Learning.ML;
-using Italbytz.Ports.Algorithms.AI.Search.GP.SearchSpace;
 using Microsoft.ML.Data;
 
 namespace Italbytz.Adapters.Algorithms.AI.Search.GP.SearchSpace;
@@ -174,7 +173,7 @@ public class LogicGpPolynomial<TCategory> : IPolynomial<TCategory>
 
         if (_classes == 2)
         {
-            var prediction = new BinaryClassificationOutputSchema
+            var prediction = new BinaryClassificationOutput
             {
                 Score = scores[1]
             };
@@ -190,60 +189,60 @@ public class LogicGpPolynomial<TCategory> : IPolynomial<TCategory>
         }
         else
         {
-            ICustomMappingMulticlassClassificationOutputSchema prediction =
+            MulticlassClassificationOutput prediction =
                 _classes switch
                 {
-                    3 => new TernaryClassificationClassificationOutputSchema
+                    3 => new TernaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    4 => new QuaternaryClassificationClassificationOutputSchema
+                    4 => new QuaternaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    5 => new QuinaryClassificationClassificationOutputSchema
+                    5 => new QuinaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    6 => new SenaryClassificationClassificationOutputSchema
+                    6 => new SenaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    7 => new SeptenaryClassificationClassificationOutputSchema
+                    7 => new SeptenaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    8 => new OctonaryClassificationClassificationOutputSchema
+                    8 => new OctonaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    9 => new NonaryClassificationClassificationOutputSchema
+                    9 => new NonaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    10 => new DenaryClassificationClassificationOutputSchema
+                    10 => new DenaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    11 => new UndenaryClassificationClassificationOutputSchema
+                    11 => new UndenaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    12 => new DuodenaryClassificationClassificationOutputSchema
+                    12 => new DuodenaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
-                    13 => new TridenaryClassificationClassificationOutputSchema
+                    13 => new TridenaryClassificationOutput
                     {
                         Score = new VBuffer<float>(scores.Length, scores)
                     },
                     14 => new
-                        TetradenaryClassificationClassificationOutputSchema
+                        TetradenaryClassificationOutput
                         {
                             Score = new VBuffer<float>(scores.Length, scores)
                         },
                     15 => new
-                        PentadenaryClassificationClassificationOutputSchema
+                        PentadenaryClassificationOutput
                         {
                             Score = new VBuffer<float>(scores.Length, scores)
                         },

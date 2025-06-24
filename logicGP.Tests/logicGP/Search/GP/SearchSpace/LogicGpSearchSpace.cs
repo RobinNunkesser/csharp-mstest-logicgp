@@ -1,8 +1,7 @@
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Control;
-using Italbytz.Adapters.Algorithms.AI.Search.GP.Individuals;
-using Italbytz.Ports.Algorithms.AI.Search.GP;
-using Italbytz.Ports.Algorithms.AI.Search.GP.Individuals;
-using Italbytz.Ports.Algorithms.AI.Search.GP.SearchSpace;
+using Italbytz.AI.Search.GP;
+using Italbytz.AI.Search.GP.Individuals;
+using Italbytz.AI.Search.GP.SearchSpace;
 
 namespace Italbytz.Adapters.Algorithms.AI.Search.GP.SearchSpace;
 

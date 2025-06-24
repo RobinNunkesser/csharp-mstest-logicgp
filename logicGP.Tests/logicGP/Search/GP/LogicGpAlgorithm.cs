@@ -1,22 +1,22 @@
 using System.Collections;
-using Italbytz.Adapters.Algorithms.AI.Search.Framework;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Control;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Crossover;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Fitness;
-using Italbytz.Adapters.Algorithms.AI.Search.GP.Initialization;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Mutation;
-using Italbytz.Adapters.Algorithms.AI.Search.GP.PopulationManager;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.SearchSpace;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Selection;
-using Italbytz.Adapters.Algorithms.AI.Search.GP.StoppingCriterion;
+using Italbytz.AI.Search;
+using Italbytz.AI.Search.GP;
+using Italbytz.AI.Search.GP.Fitness;
+using Italbytz.AI.Search.GP.Individuals;
+using Italbytz.AI.Search.GP.Initialization;
+using Italbytz.AI.Search.GP.Mutation;
+using Italbytz.AI.Search.GP.PopulationManager;
+using Italbytz.AI.Search.GP.Selection;
+using Italbytz.AI.Search.GP.StoppingCriterion;
 using Italbytz.ML;
-using Italbytz.Ports.Algorithms.AI.Search;
-using Italbytz.Ports.Algorithms.AI.Search.GP;
-using Italbytz.Ports.Algorithms.AI.Search.GP.Fitness;
-using Italbytz.Ports.Algorithms.AI.Search.GP.Individuals;
-using Italbytz.Ports.Algorithms.AI.Search.GP.Mutation;
 using Microsoft.ML;
-using Metrics = Italbytz.Adapters.Algorithms.AI.Search.Framework.Metrics;
+using DefaultColumnNames = Italbytz.ML.DefaultColumnNames;
 
 namespace Italbytz.Adapters.Algorithms.AI.Search.GP;
 
@@ -83,7 +83,7 @@ public class LogicGpAlgorithm(
     public WeightMutation WeightMutationToUse { get; set; } =
         WeightMutation.None;
 
-    public IMetrics? Validate(IDataView validationData,
+    public Italbytz.ML.Metrics? Validate(IDataView validationData,
         IIndividualList individuals,
         string labelColumnName = DefaultColumnNames.Label)
     {
@@ -125,7 +125,7 @@ public class LogicGpAlgorithm(
         return metrics;
     }
 
-    public IMetrics? Test(IDataView testData)
+    public Italbytz.ML.Metrics? Test(IDataView testData)
     {
         return new Metrics();
     }

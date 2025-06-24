@@ -1,5 +1,5 @@
-using Italbytz.Ports.Algorithms.AI.Search.GP.Fitness;
-using Italbytz.Ports.Algorithms.AI.Search.GP.Individuals;
+using Italbytz.AI.Search.GP.Fitness;
+using Italbytz.AI.Search.GP.Individuals;
 using Microsoft.ML;
 
 namespace Italbytz.Adapters.Algorithms.AI.Search.GP.Fitness;

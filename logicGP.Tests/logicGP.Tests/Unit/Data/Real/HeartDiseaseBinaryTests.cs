@@ -1,5 +1,5 @@
 using Italbytz.Adapters.Algorithms.AI.Search.GP;
-using Italbytz.Adapters.Algorithms.AI.Util;
+using Italbytz.AI.Util;
 using Italbytz.ML;
 using logicGP.Tests.Data.Real;
 using Microsoft.Extensions.DependencyInjection;

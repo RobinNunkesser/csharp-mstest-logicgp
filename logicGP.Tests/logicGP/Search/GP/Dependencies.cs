@@ -1,12 +1,13 @@
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Control;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Fitness;
-using Italbytz.Adapters.Algorithms.AI.Search.GP.Initialization;
-using Italbytz.Adapters.Algorithms.AI.Search.GP.PopulationManager;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.SearchSpace;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Selection;
-using Italbytz.Adapters.Algorithms.AI.Search.GP.StoppingCriterion;
-using Italbytz.Ports.Algorithms.AI.Search.GP;
-using Italbytz.Ports.Algorithms.AI.Search.GP.Fitness;
+using Italbytz.AI.Search.GP;
+using Italbytz.AI.Search.GP.Fitness;
+using Italbytz.AI.Search.GP.Initialization;
+using Italbytz.AI.Search.GP.PopulationManager;
+using Italbytz.AI.Search.GP.Selection;
+using Italbytz.AI.Search.GP.StoppingCriterion;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Italbytz.Adapters.Algorithms.AI.Search.GP;

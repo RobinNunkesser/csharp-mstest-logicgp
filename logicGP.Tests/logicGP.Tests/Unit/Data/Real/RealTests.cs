@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using Italbytz.Adapters.Algorithms.AI.Search.GP;
-using Italbytz.Adapters.Algorithms.AI.Util;
+using Italbytz.AI.Util;
 using Italbytz.ML;
 using logicGP.Tests.Data.Real;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +22,7 @@ public abstract class RealTests
     protected StreamWriter? LogWriter { get; set; }
     protected StreamWriter? ResultWriter { get; set; }
 
-    private TransformerChain<ITransformer?>? Train<TLabel>(MLContext mlContext,
+    private ITransformer Train<TLabel>(MLContext mlContext,
         IEstimator<ITransformer> generalTrainer, IDataView trainData,
         LookupMap<TLabel>[] lookupData, int generations = 100)
     {
@@ -197,7 +197,7 @@ public abstract class RealTests
         ResultWriter?.Close();
     }
 
-    protected abstract EstimatorChain<ITransformer?> GetPipeline(
+    protected abstract IEstimator<ITransformer?> GetPipeline(
         LogicGpTrainerBase<ITransformer> trainer, IDataView lookupIdvMap);
 
 

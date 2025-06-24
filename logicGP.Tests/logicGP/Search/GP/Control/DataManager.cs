@@ -1,11 +1,12 @@
 using System.Globalization;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Fitness;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.SearchSpace;
-using Italbytz.Adapters.Algorithms.AI.Util;
+using Italbytz.AI.Search.GP.SearchSpace;
+using Italbytz.AI.Util;
 using Italbytz.ML;
-using Italbytz.Ports.Algorithms.AI.Search.GP.SearchSpace;
 using Microsoft.ML;
 using Microsoft.ML.Data;
+using DefaultColumnNames = Italbytz.ML.DefaultColumnNames;
 
 namespace Italbytz.Adapters.Algorithms.AI.Search.GP.Control;
 

@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
-using Italbytz.Adapters.Algorithms.AI.Util;
-using Italbytz.Ports.Algorithms.AI.Search.GP.SearchSpace;
+using Italbytz.AI.Search.GP.SearchSpace;
+using Italbytz.AI.Util;
 
 namespace Italbytz.Adapters.Algorithms.AI.Search.GP.SearchSpace;
 

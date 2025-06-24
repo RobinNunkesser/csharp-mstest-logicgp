@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
+using Italbytz.AI.Search.GP.SearchSpace;
 using Italbytz.ML;
-using Italbytz.Ports.Algorithms.AI.Search.GP.SearchSpace;
 
 namespace Italbytz.Adapters.Algorithms.AI.Search.GP.SearchSpace;
 
@@ -191,10 +191,8 @@ public class LogicGpLiteral<TCategory> : ILiteral<TCategory>
     {
         var rawCategory = src switch
         {
-            BinaryClassificationInputSchema binaryFeatureRow => binaryFeatureRow
+            ICustomMappingInput featureRow => featureRow
                 .Features[_featureColumn],
-            MulticlassClassificationInputSchema multiclassFeatureRow =>
-                multiclassFeatureRow.Features[_featureColumn],
             _ => throw new InvalidDataException()
         };
 
