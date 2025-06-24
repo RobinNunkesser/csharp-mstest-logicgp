@@ -32,66 +32,6 @@
       <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic_.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_3_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_3_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_7_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_7_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_9_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_9_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_13_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_13_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_17_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_17_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_21_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_21_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_23_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_23_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_42_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_42_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_666_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_666_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_777_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic__seed_777_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
       <None Update="Data\Real\CarEvaluation\car_evaluation_strings.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
@@ -99,69 +39,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Data\Real\HeartDisease\Heart_Disease_Binary.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_3_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_3_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_7_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_7_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_9_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_9_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_13_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_13_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_17_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_17_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_21_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_21_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_23_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_23_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_42_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_42_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_666_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_666_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_777_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\HeartDisease\Heart_Disease_seed_777_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\Iris\Iris.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Data\Real\Iris\Iris_seed_3_test.csv">
@@ -237,66 +114,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Data\Real\WineQuality\Wine_Quality.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_3_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_3_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_7_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_7_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_9_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_9_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_13_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_13_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_17_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_17_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_21_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_21_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_23_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_23_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_42_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_42_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_666_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_666_train.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_777_test.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\WineQuality\Wine_Quality_seed_777_train.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Data\Simulated\Simulation1\SNPglm_1.csv">
