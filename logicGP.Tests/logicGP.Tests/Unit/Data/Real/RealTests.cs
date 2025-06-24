@@ -4,7 +4,6 @@ using Italbytz.Adapters.Algorithms.AI.Search.GP;
 using Italbytz.Adapters.Algorithms.AI.Util;
 using Italbytz.ML;
 using logicGP.Tests.Data.Real;
-using logicGP.Tests.Util;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
 using Microsoft.ML.Data;
@@ -201,14 +200,6 @@ public abstract class RealTests
     protected abstract EstimatorChain<ITransformer?> GetPipeline(
         LogicGpTrainerBase<ITransformer> trainer, IDataView lookupIdvMap);
 
-    private void ParseMLRunLog(string filePath)
-    {
-        var bestMacroaccuracy = new Dictionary<string, float>();
-        var accuracies = DataHelper.ParseMLRun(filePath);
-        UpdateAndFilterAccuracies(accuracies, bestMacroaccuracy);
-
-        PrintAccuracies(bestMacroaccuracy);
-    }
 
     private void CleanUp()
     {

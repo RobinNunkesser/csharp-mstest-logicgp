@@ -2,7 +2,6 @@ using Italbytz.Adapters.Algorithms.AI.Search.GP;
 using Italbytz.Adapters.Algorithms.AI.Util;
 using Italbytz.ML;
 using logicGP.Tests.Data.Real;
-using logicGP.Tests.Util;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
 using Microsoft.ML.Data;
