@@ -54,7 +54,7 @@ public class WineQualityTests : RealTests
     }
     
     [TestMethod]
-    [TestCategory("FixedSeed")]
+    //[TestCategory("FixedSeed")]
     public void TestFlRw()
     {
         ThreadSafeRandomNetCore.Seed = 42;

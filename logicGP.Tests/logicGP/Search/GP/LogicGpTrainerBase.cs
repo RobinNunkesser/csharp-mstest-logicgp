@@ -1,3 +1,4 @@
+using System.Globalization;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Control;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Fitness;
 using Italbytz.Adapters.Algorithms.AI.Search.GP.Selection;
@@ -30,6 +31,11 @@ public abstract class
 
     public ITransformer Fit(IDataView input)
     {
+        /*var de = input.GetDataExcerpt();
+        foreach (var feature in de.Features)
+            Console.WriteLine(string.Join(",",feature.Select(f => f.ToString(CultureInfo.InvariantCulture))));
+        Console.Out.Flush();*/
+                
         var featureNames = input.GetFeaturesSlotNames();
         // Split data into k folds
         const int k = 5; // Number of folds
