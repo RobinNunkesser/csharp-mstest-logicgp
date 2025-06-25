@@ -1,6 +1,7 @@
 using Italbytz.Adapters.Algorithms.AI.Search.GP;
 using Italbytz.AI.Util;
 using Italbytz.ML;
+using Italbytz.ML.Data;
 using logicGP.Tests.Data.Real;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
@@ -28,16 +29,14 @@ public class WineQualityTests : RealTests
         //new LookupMap<uint>(10)
     ];
 
+    private readonly IDataset _dataset;
+
     public WineQualityTests()
     {
         ThreadSafeRandomNetCore.Seed = 42;
         ThreadSafeMLContext.Seed = 42;
-        var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-            "Data/Real/WineQuality", "Wine_Quality.csv");
-        _data = mlContext.Data.LoadFromTextFile<WineQualityModelInput>(
-            path,
-            ',', true);
+        _dataset = Italbytz.ML.Data.Data.WineQuality;
+        _data = _dataset.DataView;
         LogFile = $"log_{GetType().Name}";
     }
 

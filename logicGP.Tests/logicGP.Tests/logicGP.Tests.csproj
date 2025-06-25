@@ -11,7 +11,7 @@
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
-        <PackageReference Include="Italbytz.ML.UCIMLR" Version="9.1.0" />
+        <PackageReference Include="Italbytz.ML.UCIMLR" Version="9.1.1" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
         <PackageReference Include="MSTest.TestAdapter" Version="3.1.1"/>
         <PackageReference Include="MSTest.TestFramework" Version="3.1.1"/>
@@ -26,13 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Data\Real\BalanceScale\balancescale.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
       <None Update="Data\Real\BreastCancerWisconsinDiagnostic\Breast_Cancer_Wisconsin_Diagnostic_.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\CarEvaluation\car_evaluation_strings.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Data\Real\HeartDisease\Heart_Disease.csv">
@@ -101,16 +95,10 @@
       <None Update="Data\Real\Iris\Iris_seed_777_train.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="Data\Real\Lenses\lenses.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
       <None Update="Data\Real\NationalPoll\national_poll_on_healthy_aging_npha.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Data\Real\Restaurant\restaurant.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\Real\Solarflare\solarflare_1.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Data\Real\WineQuality\Wine_Quality.csv">

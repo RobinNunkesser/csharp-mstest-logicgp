@@ -1,6 +1,7 @@
 using Italbytz.Adapters.Algorithms.AI.Search.GP;
 using Italbytz.AI.Util;
 using Italbytz.ML;
+using Italbytz.ML.Data;
 using logicGP.Tests.Data.Real;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
@@ -22,18 +23,15 @@ public class HeartDiseaseTests : RealTests
         new(4)
     ];
 
+    private readonly IDataset _dataset;
+
     public HeartDiseaseTests()
     {
         ThreadSafeRandomNetCore.Seed = 42;
         ThreadSafeMLContext.Seed = 42;
-        var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-            "Data/Real/HeartDisease", "Heart_Disease.csv");
-        _data = mlContext.Data.LoadFromTextFile<HeartDiseaseModelInput>(
-            path,
-            ',', true);
+        _dataset = Italbytz.ML.Data.Data.HeartDisease;
+        _data = _dataset.DataView;
         LogFile = $"log_{GetType().Name}";
-        //SaveTrainTestSplit(_data, GetType().Name);
     }
 
     [TestCleanup]

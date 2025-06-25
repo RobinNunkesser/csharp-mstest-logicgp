@@ -1,6 +1,7 @@
 using Italbytz.Adapters.Algorithms.AI.Search.GP;
 using Italbytz.AI.Util;
 using Italbytz.ML;
+using Italbytz.ML.Data;
 using logicGP.Tests.Data.Real;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
@@ -12,15 +13,12 @@ namespace logicGP.Tests.Unit.Data.Real;
 public class HeartDiseaseBinaryTests : RealTests
 {
     private readonly IDataView _data;
+    private readonly IDataset _dataset;
 
     public HeartDiseaseBinaryTests()
     {
-        var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-            "Data/Real/HeartDisease", "Heart_Disease_Binary.csv");
-        _data = mlContext.Data.LoadFromTextFile<HeartDiseaseModelInput>(
-            path,
-            ',', true);
+        _dataset = Italbytz.ML.Data.Data.HeartDiseaseBinary;
+        _data = _dataset.DataView;
     }
 
     [TestMethod]

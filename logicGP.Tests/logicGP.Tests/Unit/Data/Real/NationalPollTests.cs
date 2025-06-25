@@ -1,6 +1,7 @@
 using Italbytz.Adapters.Algorithms.AI.Search.GP;
 using Italbytz.AI.Util;
 using Italbytz.ML;
+using Italbytz.ML.Data;
 using logicGP.Tests.Data.Real;
 using Microsoft.ML;
 using Microsoft.ML.Data;
@@ -19,17 +20,14 @@ public class NationalPollTests : RealTests
         new(3)
     ];
 
+    private readonly IDataset _dataset;
+
     public NationalPollTests()
     {
         ThreadSafeRandomNetCore.Seed = 42;
         ThreadSafeMLContext.Seed = 42;
-        var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-            "Data/Real/NationalPoll",
-            "national_poll_on_healthy_aging_npha.csv");
-        _data = mlContext.Data.LoadFromTextFile<NationalPollModelInput>(
-            path,
-            ',', true);
+        _dataset = Italbytz.ML.Data.Data.NPHA;
+        _data = _dataset.DataView;
         LogFile = $"log_{GetType().Name}";
         SaveCvSplit(_data, GetType().Name);
     }

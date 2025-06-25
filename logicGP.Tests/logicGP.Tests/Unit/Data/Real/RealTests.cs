@@ -38,28 +38,7 @@ public abstract class RealTests
         return pipeline.Fit(trainData);
     }
 
-    protected void SaveTrainTestSplit(
-        IDataView data, string fileName)
-    {
-        foreach (var mlSeed in Seeds)
-        {
-            var mlContext = new MLContext(mlSeed);
-            var trainTestSplit = mlContext.Data.TrainTestSplit(data, 0.2);
-            var trainSet = trainTestSplit.TrainSet;
-            var testSet = trainTestSplit.TestSet;
-            var dataFolder =
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
-            if (!Directory.Exists(dataFolder))
-                Directory.CreateDirectory(dataFolder);
-
-            trainSet.SaveAsCsv(Path.Combine(dataFolder,
-                $"{fileName}_seed_{mlSeed}_train.csv"));
-            testSet.SaveAsCsv(Path.Combine(dataFolder,
-                $"{fileName}_seed_{mlSeed}_test.csv"));
-        }
-    }
     
-
     protected void SaveCvSplit(
         IDataView data, string fileName)
     {

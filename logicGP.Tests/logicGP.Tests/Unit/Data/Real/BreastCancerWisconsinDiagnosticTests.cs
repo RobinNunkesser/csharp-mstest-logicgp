@@ -1,6 +1,7 @@
 using Italbytz.Adapters.Algorithms.AI.Search.GP;
 using Italbytz.AI.Util;
 using Italbytz.ML;
+using Italbytz.ML.Data;
 using logicGP.Tests.Data.Real;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
@@ -19,18 +20,14 @@ public class BreastCancerWisconsinDiagnosticTests : RealTests
         new("B")
     ];
 
+    private readonly IDataset _dataset;
+
     public BreastCancerWisconsinDiagnosticTests()
     {
         ThreadSafeRandomNetCore.Seed = 42;
         ThreadSafeMLContext.Seed = 42;
-        var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-            "Data/Real/BreastCancerWisconsinDiagnostic",
-            "Breast_Cancer_Wisconsin_Diagnostic_.csv");
-        _data = mlContext.Data
-            .LoadFromTextFile<BreastCancerWisconsinDiagnosticModelInput>(
-                path,
-                ',', true);
+        _dataset = Italbytz.ML.Data.Data.BreastCancerWisconsinDiagnostic;
+        _data = _dataset.DataView;
         LogFile = $"log_{GetType().Name}";
     }
 

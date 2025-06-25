@@ -1,6 +1,7 @@
 using Italbytz.Adapters.Algorithms.AI.Search.GP;
 using Italbytz.AI.Util;
 using Italbytz.ML;
+using Italbytz.ML.Data;
 using logicGP.Tests.Data.Real;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
@@ -13,15 +14,12 @@ namespace logicGP.Tests.Unit.Data.Real;
 public class BalanceScaleTests : RealTests
 {
     private readonly IDataView _data;
+    private readonly IDataset _dataset;
 
     public BalanceScaleTests()
     {
-        var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-            "Data/Real/BalanceScale", "balancescale.csv");
-        _data = mlContext.Data.LoadFromTextFile<BalanceScaleModelInput>(
-            path,
-            ',', true);
+        _dataset = Italbytz.ML.Data.Data.BalanceScale;
+        _data = _dataset.DataView;
     }
 
     [TestMethod]
