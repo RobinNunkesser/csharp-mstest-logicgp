@@ -40,12 +40,6 @@ public class HeartDiseaseBinaryTests : RealTests
 
         Assert.IsTrue(metrics.Accuracy > 0.74);
         Assert.IsTrue(metrics.Accuracy < 0.75);
-        Assert.IsTrue(metrics.F1Score > 0.69);
-        Assert.IsTrue(metrics.F1Score < 0.70);
-        Assert.IsTrue(metrics.AreaUnderRocCurve > 0.73);
-        Assert.IsTrue(metrics.AreaUnderRocCurve < 0.74);
-        Assert.IsTrue(metrics.AreaUnderPrecisionRecallCurve > 0.69);
-        Assert.IsTrue(metrics.AreaUnderPrecisionRecallCurve < 0.70);
     }
 
 

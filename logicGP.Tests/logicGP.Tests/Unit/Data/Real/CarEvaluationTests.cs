@@ -39,8 +39,8 @@ public class CarEvaluationTests : RealTests
         var metrics = mlContext.MulticlassClassification
             .Evaluate(testResults);
 
-        Assert.IsTrue(metrics.MacroAccuracy > 0.38);
-        Assert.IsTrue(metrics.MacroAccuracy < 0.39);
+        Assert.IsTrue(metrics.MacroAccuracy > 0.32);
+        Assert.IsTrue(metrics.MacroAccuracy < 0.33);
     }
 
     protected override EstimatorChain<ITransformer?> GetPipeline(

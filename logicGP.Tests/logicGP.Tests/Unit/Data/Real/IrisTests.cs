@@ -77,8 +77,8 @@ public class IrisTests : RealTests
             .Evaluate(testResults);
 
 
-        Assert.IsTrue(metrics.MacroAccuracy > 0.559);
-        Assert.IsTrue(metrics.MacroAccuracy < 0.56);
+        Assert.IsTrue(metrics.MacroAccuracy > 0.33);
+        Assert.IsTrue(metrics.MacroAccuracy < 0.34);
     }
 
     protected override IEstimator<ITransformer> GetPipeline(

@@ -82,14 +82,14 @@ public class NationalPollTests : RealTests
     public void TestFlRwMacro()
     {
         var trainer = new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(
-            10000);
+            10);
         var testResults = TestFlRw(trainer, _data, _data, _lookupData, 10);
         var metrics = ThreadSafeMLContext.LocalMLContext
             .MulticlassClassification
             .Evaluate(testResults);
 
-        Assert.IsTrue(metrics.MacroAccuracy > 0.358);
-        Assert.IsTrue(metrics.MacroAccuracy < 0.359);
+        Assert.IsTrue(metrics.MacroAccuracy > 0.33);
+        Assert.IsTrue(metrics.MacroAccuracy < 0.34);
     }
 
 

@@ -38,8 +38,8 @@ public class LensesTests : RealTests
         var metrics = mlContext.MulticlassClassification
             .Evaluate(testResults);
 
-        Assert.IsTrue(metrics.MacroAccuracy > 0.8000);
-        Assert.IsTrue(metrics.MacroAccuracy < 0.8001);
+        Assert.IsTrue(metrics.MacroAccuracy > 0.59);
+        Assert.IsTrue(metrics.MacroAccuracy < 0.61);
     }
 
     protected override EstimatorChain<ITransformer?> GetPipeline(

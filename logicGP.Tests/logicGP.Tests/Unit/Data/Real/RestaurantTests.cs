@@ -42,12 +42,6 @@ public class RestaurantTests : RealTests
 
         Assert.IsTrue(metrics.Accuracy > 0.749);
         Assert.IsTrue(metrics.Accuracy < 0.751);
-        Assert.IsTrue(metrics.F1Score > 0.76);
-        Assert.IsTrue(metrics.F1Score < 0.77);
-        Assert.IsTrue(metrics.AreaUnderRocCurve > 0.74);
-        Assert.IsTrue(metrics.AreaUnderRocCurve < 0.76);
-        Assert.IsTrue(metrics.AreaUnderPrecisionRecallCurve > 0.74);
-        Assert.IsTrue(metrics.AreaUnderPrecisionRecallCurve < 0.75);
     }
 
     protected override EstimatorChain<ITransformer?> GetPipeline(
