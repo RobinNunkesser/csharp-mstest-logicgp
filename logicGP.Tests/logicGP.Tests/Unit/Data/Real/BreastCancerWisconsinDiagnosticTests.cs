@@ -1,9 +1,7 @@
-using Italbytz.Adapters.Algorithms.AI.Search.GP;
-using Italbytz.AI.Util;
+using Italbytz.AI;
+using Italbytz.EA.Trainer;
 using Italbytz.ML;
 using Italbytz.ML.Data;
-using logicGP.Tests.Data.Real;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 
@@ -40,7 +38,9 @@ public class BreastCancerWisconsinDiagnosticTests : RealTests
     [TestMethod]
     public void SimulateFlRwMicro()
     {
-        var trainer = GetFlRwMicroTrainer(_lookupData.Length);
+        var trainer =
+            new LogicGpFlrwMicroMulticlassTrainer<BinaryClassificationOutput>(
+                10000);
         SimulateFlRw(trainer, _data, _lookupData);
     }
 
@@ -50,17 +50,13 @@ public class BreastCancerWisconsinDiagnosticTests : RealTests
     {
         ThreadSafeRandomNetCore.Seed = 42;
 
-        var services = new ServiceCollection().AddServices();
-        var serviceProvider = services.BuildServiceProvider();
-        var trainer =
-            serviceProvider
-                .GetRequiredService<LogicGpGpasBinaryTrainer>();
+        var trainer = new LogicGpGpasBinaryTrainer(10);
 
-        trainer.Classes = _lookupData.Length;
+        
         var mlContext = ThreadSafeMLContext.LocalMLContext;
         var testResults = TestFlRw(trainer, _data, _data, _lookupData, 10);
         var metrics = mlContext.BinaryClassification
-            .Evaluate(testResults, trainer.Label);
+            .Evaluate(testResults);
 
 
         Assert.IsTrue(metrics.Accuracy > 0.77);
@@ -75,7 +71,7 @@ public class BreastCancerWisconsinDiagnosticTests : RealTests
 
 
     protected override EstimatorChain<ITransformer> GetPipeline(
-        LogicGpTrainerBase<ITransformer> trainer, IDataView lookupIdvMap)
+        IEstimator<ITransformer> trainer, IDataView lookupIdvMap)
     {
         var mlContext = ThreadSafeMLContext.LocalMLContext;
         var pipeline = mlContext.Transforms.ReplaceMissingValues(new[]

@@ -1,8 +1,8 @@
-using Italbytz.Adapters.Algorithms.AI.Search.GP;
-using Italbytz.AI.Util;
+using System.Diagnostics;
+using Italbytz.AI;
+using Italbytz.EA.Trainer;
 using Italbytz.ML;
 using Italbytz.ML.Data;
-using logicGP.Tests.Data.Real;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 
@@ -41,20 +41,52 @@ public class NationalPollTests : RealTests
     [TestMethod]
     public void SimulateFlRwMacro()
     {
-        var trainer = GetFlRwMacroTrainer(_lookupData.Length);
+        var trainer =
+            new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(
+                10000);
         SimulateFlRw(trainer, _data, _lookupData);
     }
 
+    [TestMethod]
+    public void TestFlRwMacroRuntime()
+    {
+        var folder = AppDomain.CurrentDomain.BaseDirectory;
+        var file = Path.Combine(folder, $"{GetType().Name}_runtime.csv");
+        var resultWriter = new StreamWriter(file);
+        resultWriter.WriteLine("Generations,TimeMs");
+        var trainer = new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(
+            10000);
+        var stopwatch = new Stopwatch();
+        var generations = new int[] { 10000 };//{ 10, 100, 1000, 10000};
+        var magicNumbers = new int[] { 42 };//{ 3, 7, 13, 21, 42, 64, 77, 88, 99, 123 };
+        foreach (var generation in generations)
+        {
+            foreach (var magicNumber in magicNumbers)
+            {
+                ThreadSafeRandomNetCore.Seed = magicNumber;
+                ThreadSafeMLContext.Seed = magicNumber;
+                stopwatch.Start();
+                TestFlRw(trainer, _data, _data, _lookupData, generation);
+                stopwatch.Stop();
+                resultWriter.WriteLine(
+                    $"{generation},{stopwatch.ElapsedMilliseconds}");
+                resultWriter.Flush();
+                stopwatch.Reset();
+            }
+        }
+        resultWriter.Dispose();
+    }
 
     [TestMethod]
     [TestCategory("FixedSeed")]
     public void TestFlRwMacro()
     {
-        var trainer = GetFlRwMacroTrainer(_lookupData.Length);
+        var trainer = new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(
+            10000);
         var testResults = TestFlRw(trainer, _data, _data, _lookupData, 10);
         var metrics = ThreadSafeMLContext.LocalMLContext
             .MulticlassClassification
-            .Evaluate(testResults, trainer.Label);
+            .Evaluate(testResults);
 
         Assert.IsTrue(metrics.MacroAccuracy > 0.358);
         Assert.IsTrue(metrics.MacroAccuracy < 0.359);
@@ -62,7 +94,7 @@ public class NationalPollTests : RealTests
 
 
     protected override EstimatorChain<ITransformer?> GetPipeline(
-        LogicGpTrainerBase<ITransformer> trainer, IDataView lookupIdvMap)
+        IEstimator<ITransformer> trainer, IDataView lookupIdvMap)
     {
         var mlContext = ThreadSafeMLContext.LocalMLContext;
         var pipeline = mlContext.Transforms.ReplaceMissingValues(new[]

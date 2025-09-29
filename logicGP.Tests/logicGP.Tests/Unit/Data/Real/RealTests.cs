@@ -1,12 +1,8 @@
 using System.Diagnostics;
 using System.Globalization;
-using Italbytz.Adapters.Algorithms.AI.Search.GP;
-using Italbytz.AI.Util;
+using Italbytz.AI;
 using Italbytz.ML;
-using logicGP.Tests.Data.Real;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
-using Microsoft.ML.Data;
 
 namespace logicGP.Tests;
 
@@ -27,14 +23,7 @@ public abstract class RealTests
         LookupMap<TLabel>[] lookupData, int generations = 100)
     {
         var lookupIdvMap = mlContext.Data.LoadFromEnumerable(lookupData);
-        if (generalTrainer is not LogicGpTrainerBase<ITransformer> trainer)
-            throw new ArgumentException(
-                "The trainer must be of type LogicGpTrainerBase<ITransformer>");
-        trainer.LabelKeyToValueDictionary =
-            LookupMap<TLabel>.KeyToValueMap(lookupData);
-        trainer.Label = "Label";
-        trainer.MaxGenerations = generations;
-        var pipeline = GetPipeline(trainer, lookupIdvMap);
+        var pipeline = GetPipeline(generalTrainer, lookupIdvMap);
         return pipeline.Fit(trainData);
     }
 
@@ -62,29 +51,7 @@ public abstract class RealTests
             foldIndex++;
         }
     }
-
-    protected LogicGpFlrwMacroMulticlassTrainer GetFlRwMacroTrainer(int classes)
-    {
-        var services = new ServiceCollection().AddServices();
-        var serviceProvider = services.BuildServiceProvider();
-        var trainer =
-            serviceProvider
-                .GetRequiredService<LogicGpFlrwMacroMulticlassTrainer>();
-        trainer.Classes = classes;
-        return trainer;
-    }
-
-    protected LogicGpFlrwMicroMulticlassTrainer GetFlRwMicroTrainer(int classes)
-    {
-        var services = new ServiceCollection().AddServices();
-        var serviceProvider = services.BuildServiceProvider();
-        var trainer =
-            serviceProvider
-                .GetRequiredService<LogicGpFlrwMicroMulticlassTrainer>();
-        trainer.Classes = classes;
-        return trainer;
-    }
-
+    
     protected IDataView TestFlRw<TLabel>(
         IEstimator<ITransformer> generalTrainer,
         IDataView trainData, IDataView testData,
@@ -128,14 +95,14 @@ public abstract class RealTests
             var mlModel = Train(mlContext, trainer, trainData, lookupData,
                 generations);
             Assert.IsNotNull(mlModel);
-            var chosenIndividual =
+            /*var chosenIndividual =
                 ((LogicGpTrainerBase<ITransformer>)trainer)
-                .ChosenIndividual;
+                .ChosenIndividual;*/
             var testResults = mlModel.Transform(testData);
             LogWriter?.WriteLine(
                 $"ML seed: {mlSeed}, Random seed: {randomSeed}, Generations: {generations}");
             LogWriter?.WriteLine();
-            LogWriter?.Write(chosenIndividual.ToString());
+            //LogWriter?.Write(chosenIndividual.ToString());
             // ToDO: lookupData größe 2 -> Binär
             LogWriter?.WriteLine();
             if (lookupData.Length > 2)
@@ -177,7 +144,7 @@ public abstract class RealTests
     }
 
     protected abstract IEstimator<ITransformer?> GetPipeline(
-        LogicGpTrainerBase<ITransformer> trainer, IDataView lookupIdvMap);
+        IEstimator<ITransformer> trainer, IDataView lookupIdvMap);
 
 
     private void CleanUp()

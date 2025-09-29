@@ -1,12 +1,9 @@
-using Italbytz.Adapters.Algorithms.AI.Search.GP;
-using Italbytz.AI.Util;
+using Italbytz.AI;
+using Italbytz.EA.Trainer;
 using Italbytz.ML;
 using Italbytz.ML.Data;
 using Italbytz.ML.ModelBuilder.Configuration;
-using logicGP.Tests.Data.Real;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
-using Microsoft.ML.Data;
 
 namespace logicGP.Tests.Unit.Data.Real;
 
@@ -42,8 +39,26 @@ public class IrisTests : RealTests
     [TestMethod]
     public void SimulateFlRwMacro()
     {
-        var trainer = GetFlRwMacroTrainer(_lookupData.Length);
+        var trainer =
+            new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(
+                10000);
         SimulateFlRw(trainer, _data, _lookupData);
+    }
+    
+    private void PrintFeaturesAndLabels(IDataView predictions)
+    {
+        var excerpt = predictions.GetDataExcerpt("Label");
+        var features = excerpt.Features;
+        var labels = excerpt.Labels;
+        Console.WriteLine("private readonly string[][] _features = [");
+        foreach (var feature in features)
+            Console.WriteLine(
+                $"    [ {string.Join(", ", feature.Select(f => f == 0.0 ? "\"1\"": Math.Abs(f - 1f/3f) < 0.1 ? "\"2\"" : Math.Abs(f - 2f/3f) < 0.1 ? "\"3\"" : "\"4\""))} ],");
+        Console.WriteLine("];");
+
+        Console.WriteLine("private readonly string[] _labels = [");
+        foreach (var label in labels) Console.WriteLine($"    \"{label}\",");
+        Console.WriteLine("];");
     }
     
     [TestMethod]
@@ -52,18 +67,14 @@ public class IrisTests : RealTests
     {
         ThreadSafeRandomNetCore.Seed = 42;
 
-        var services = new ServiceCollection().AddServices();
-        var serviceProvider = services.BuildServiceProvider();
-        var trainer =
-            serviceProvider
-                .GetRequiredService<LogicGpFlrwMacroMulticlassTrainer>();
+        var trainer = new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(10);
 
 
-        trainer.Classes = _lookupData.Length;
         var mlContext = ThreadSafeMLContext.LocalMLContext;
         var testResults = TestFlRw(trainer, _data, _data, _lookupData, 10);
+        PrintFeaturesAndLabels(testResults);
         var metrics = mlContext.MulticlassClassification
-            .Evaluate(testResults, trainer.Label);
+            .Evaluate(testResults);
 
 
         Assert.IsTrue(metrics.MacroAccuracy > 0.559);
@@ -71,7 +82,7 @@ public class IrisTests : RealTests
     }
 
     protected override IEstimator<ITransformer> GetPipeline(
-        LogicGpTrainerBase<ITransformer> trainer, IDataView lookupIdvMap)
+        IEstimator<ITransformer> trainer, IDataView lookupIdvMap)
     {
         return _dataset.BuildPipeline(
             ThreadSafeMLContext.LocalMLContext, ScenarioType.Classification, trainer,true);

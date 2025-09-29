@@ -1,8 +1,7 @@
 using System.Globalization;
-using Italbytz.Adapters.Algorithms.AI.Search.GP;
+using Italbytz.EA.Trainer;
 using Italbytz.ML;
 using logicGP.Tests.Data.Simulated;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
 
 namespace logicGP.Tests.Unit.Data.Simulated;
@@ -20,8 +19,8 @@ public sealed class SNPSimulationTests
     [TestMethod]
     public void TestSimulation1GPAS()
     {
-        GPASSimulation("Simulation1", AppDomain.CurrentDomain.BaseDirectory,
-            TrainerType.LogicGpGpasBinaryTrainer);
+        var trainer = new LogicGpGpasBinaryTrainer(10000);
+        GPASSimulation("Simulation1", AppDomain.CurrentDomain.BaseDirectory,trainer);
         // Only test successful completion
         Assert.IsTrue(true);
     }
@@ -29,8 +28,8 @@ public sealed class SNPSimulationTests
     [TestMethod]
     public void TestSimulation2GPAS()
     {
-        GPASSimulation("Simulation2", AppDomain.CurrentDomain.BaseDirectory,
-            TrainerType.LogicGpGpasBinaryTrainer);
+        var trainer = new LogicGpGpasBinaryTrainer(10000);
+        GPASSimulation("Simulation2", AppDomain.CurrentDomain.BaseDirectory,trainer);
         // Only test successful completion
         Assert.IsTrue(true);
     }
@@ -38,8 +37,9 @@ public sealed class SNPSimulationTests
     [TestMethod]
     public void TestSimulation3GPAS()
     {
+        var trainer = new LogicGpGpasBinaryTrainer(10000);
         GPASSimulation("Simulation3", AppDomain.CurrentDomain.BaseDirectory,
-            TrainerType.LogicGpGpasBinaryTrainer);
+            trainer);
         // Only test successful completion
         Assert.IsTrue(true);
     }
@@ -47,8 +47,10 @@ public sealed class SNPSimulationTests
     [TestMethod]
     public void TestSimulation1FlRw()
     {
+        var trainer = new LogicGpFlrwMicroMulticlassTrainer<BinaryClassificationOutput>(10000);
+
         GPASSimulation("Simulation1", AppDomain.CurrentDomain.BaseDirectory,
-            TrainerType.LogicGpFlrwMicroMulticlassTrainer);
+            trainer);
         // Only test successful completion
         Assert.IsTrue(true);
     }
@@ -56,8 +58,10 @@ public sealed class SNPSimulationTests
     [TestMethod]
     public void TestSimulation2FlRw()
     {
+        var trainer = new LogicGpFlrwMicroMulticlassTrainer<BinaryClassificationOutput>(10000);
+
         GPASSimulation("Simulation2", AppDomain.CurrentDomain.BaseDirectory,
-            TrainerType.LogicGpFlrwMicroMulticlassTrainer);
+            trainer);
         // Only test successful completion
         Assert.IsTrue(true);
     }
@@ -65,14 +69,16 @@ public sealed class SNPSimulationTests
     [TestMethod]
     public void TestSimulation3FlRw()
     {
+        var trainer = new LogicGpFlrwMicroMulticlassTrainer<BinaryClassificationOutput>(10000);
+
         GPASSimulation("Simulation3", AppDomain.CurrentDomain.BaseDirectory,
-            TrainerType.LogicGpFlrwMicroMulticlassTrainer);
+            trainer);
         // Only test successful completion
         Assert.IsTrue(true);
     }
 
     public void GPASSimulation(string folder, string logFolder,
-        TrainerType trainerType)
+        IEstimator<ITransformer> trainer)
     {
         var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
         var path = Path.Combine(logFolder,
@@ -83,21 +89,8 @@ public sealed class SNPSimulationTests
         using var writer = new StreamWriter(path);
         writer.WriteLine("\"x\"");
         var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var services = new ServiceCollection().AddServices();
-        var serviceProvider = services.BuildServiceProvider();
 
-        LogicGpTrainerBase<ITransformer> trainer = trainerType switch
-        {
-            TrainerType.LogicGpGpasBinaryTrainer => serviceProvider
-                .GetRequiredService<LogicGpGpasBinaryTrainer>(),
-            TrainerType.LogicGpFlrwMicroMulticlassTrainer => serviceProvider
-                .GetRequiredService<LogicGpFlrwMicroMulticlassTrainer>(),
-            TrainerType.LogicGpFlrwMacroMulticlassTrainer => serviceProvider
-                .GetRequiredService<LogicGpFlrwMacroMulticlassTrainer>(),
-            _ => throw new ArgumentOutOfRangeException(nameof(trainerType),
-                trainerType, null)
-        };
-
+        
         var lookupData = new[]
         {
             new LookupMap<uint>(0),
@@ -106,11 +99,6 @@ public sealed class SNPSimulationTests
         // Convert to IDataView
         var lookupIdvMap = mlContext.Data.LoadFromEnumerable(lookupData);
 
-        trainer.LabelKeyToValueDictionary =
-            LookupMap<uint>.KeyToValueMap(lookupData);
-        trainer.Label = "Label";
-        // This is only for testing purposes, in production this should be set to a higher value (e.g. 10000)
-        trainer.MaxGenerations = 10;
 
         for (var j = 1; j < 101; j++)
         {

@@ -1,9 +1,7 @@
-using Italbytz.Adapters.Algorithms.AI.Search.GP;
-using Italbytz.AI.Util;
+using Italbytz.AI;
+using Italbytz.EA.Trainer;
 using Italbytz.ML;
 using Italbytz.ML.Data;
-using logicGP.Tests.Data.Real;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 
@@ -49,7 +47,9 @@ public class WineQualityTests : RealTests
     [TestMethod]
     public void SimulateFlRwMacro()
     {
-        var trainer = GetFlRwMacroTrainer(_lookupData.Length);
+        var trainer =
+            new LogicGpFlrwMacroMulticlassTrainer<
+                SeptenaryClassificationOutput>(10000);
         SimulateFlRw(trainer, _data, _lookupData);
     }
     
@@ -59,17 +59,14 @@ public class WineQualityTests : RealTests
     {
         ThreadSafeRandomNetCore.Seed = 42;
 
-        var services = new ServiceCollection().AddServices();
-        var serviceProvider = services.BuildServiceProvider();
         var trainer =
-            serviceProvider
-                .GetRequiredService<LogicGpFlrwMacroMulticlassTrainer>();
+            new LogicGpFlrwMacroMulticlassTrainer<
+                SeptenaryClassificationOutput>(10);
 
-        trainer.Classes = _lookupData.Length;
         var mlContext = ThreadSafeMLContext.LocalMLContext;
         var testResults = TestFlRw(trainer, _data, _data, _lookupData, 10);
         var metrics = mlContext.MulticlassClassification
-            .Evaluate(testResults, trainer.Label);
+            .Evaluate(testResults);
 
 
         Assert.IsTrue(metrics.MacroAccuracy > 0.16);
@@ -78,7 +75,7 @@ public class WineQualityTests : RealTests
 
 
     protected override EstimatorChain<ITransformer> GetPipeline(
-        LogicGpTrainerBase<ITransformer> trainer, IDataView lookupIdvMap)
+        IEstimator<ITransformer> trainer, IDataView lookupIdvMap)
     {
         var mlContext = ThreadSafeMLContext.LocalMLContext;
         var pipeline = mlContext.Transforms.ReplaceMissingValues(new[]

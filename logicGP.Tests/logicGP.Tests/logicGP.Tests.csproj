@@ -11,6 +11,7 @@
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
+        <PackageReference Include="Italbytz.Adapters.Algorithms.EA" Version="9.1.0" />
         <PackageReference Include="Italbytz.ML.UCIMLR" Version="9.1.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
         <PackageReference Include="MSTest.TestAdapter" Version="3.1.1"/>
@@ -1004,10 +1005,6 @@
       <None Update="Data\Simulated\Simulation3\SNPglm_100.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\logicGP\logicGP.csproj" />
     </ItemGroup>
 
     <ItemGroup>
