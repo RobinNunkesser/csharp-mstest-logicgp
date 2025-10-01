@@ -48,7 +48,7 @@ public class WineQualityTests : RealTests
     public void SimulateFlRwMacro()
     {
         var trainer =
-            new LogicGpFlrwMacroMulticlassTrainer<
+            new LogicGpFlcwMacroMulticlassTrainer<
                 SeptenaryClassificationOutput>(10000);
         SimulateFlRw(trainer, _data, _lookupData);
     }
@@ -60,7 +60,7 @@ public class WineQualityTests : RealTests
         ThreadSafeRandomNetCore.Seed = 42;
 
         var trainer =
-            new LogicGpFlrwMacroMulticlassTrainer<
+            new LogicGpFlcwMacroMulticlassTrainer<
                 SeptenaryClassificationOutput>(10);
 
         var mlContext = ThreadSafeMLContext.LocalMLContext;

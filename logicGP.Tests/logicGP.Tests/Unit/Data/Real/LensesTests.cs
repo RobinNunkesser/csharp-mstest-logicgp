@@ -25,7 +25,7 @@ public class LensesTests : RealTests
     {
         ThreadSafeRandomNetCore.Seed = 42;
 
-        var trainer = new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(10);
+        var trainer = new LogicGpFlcwMacroMulticlassTrainer<TernaryClassificationOutput>(10);
 
         var lookupData = new[]
         {

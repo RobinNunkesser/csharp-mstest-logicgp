@@ -42,7 +42,7 @@ public class HeartDiseaseTests : RealTests
     public void SimulateFlRwMacro()
     {
         var trainer =
-            new LogicGpFlrwMacroMulticlassTrainer<QuinaryClassificationOutput>(
+            new LogicGpFlcwMacroMulticlassTrainer<QuinaryClassificationOutput>(
                 10000);
         SimulateFlRw(trainer, _data, _lookupData);
     }
@@ -53,7 +53,7 @@ public class HeartDiseaseTests : RealTests
     {
         ThreadSafeRandomNetCore.Seed = 42;
 
-        var trainer = new LogicGpFlrwMacroMulticlassTrainer<QuinaryClassificationOutput>(10);
+        var trainer = new LogicGpFlcwMacroMulticlassTrainer<QuinaryClassificationOutput>(10);
         var mlContext = ThreadSafeMLContext.LocalMLContext;
         var testResults = TestFlRw(trainer, _data, _data, _lookupData, 10);
         var metrics = mlContext.MulticlassClassification

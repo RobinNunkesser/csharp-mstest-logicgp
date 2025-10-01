@@ -9,12 +9,6 @@ namespace logicGP.Tests.Unit.Data.Simulated;
 [TestClass]
 public sealed class SNPSimulationTests
 {
-    public enum TrainerType
-    {
-        LogicGpGpasBinaryTrainer,
-        LogicGpFlrwMicroMulticlassTrainer,
-        LogicGpFlrwMacroMulticlassTrainer
-    }
 
     [TestMethod]
     public void TestSimulation1GPAS()
@@ -45,9 +39,20 @@ public sealed class SNPSimulationTests
     }
 
     [TestMethod]
+    public void TestSimulation1RlRw()
+    {
+        var trainer = new LogicGpRlcwMulticlassTrainer<BinaryClassificationOutput>(1000,10000,1.1);
+
+        GPASSimulation("Simulation1", AppDomain.CurrentDomain.BaseDirectory,
+            trainer);
+        // Only test successful completion
+        Assert.IsTrue(true);
+    }
+
+    [TestMethod]
     public void TestSimulation1FlRw()
     {
-        var trainer = new LogicGpFlrwMicroMulticlassTrainer<BinaryClassificationOutput>(10000);
+        var trainer = new LogicGpFlcwMicroMulticlassTrainer<BinaryClassificationOutput>(10000);
 
         GPASSimulation("Simulation1", AppDomain.CurrentDomain.BaseDirectory,
             trainer);
@@ -58,7 +63,7 @@ public sealed class SNPSimulationTests
     [TestMethod]
     public void TestSimulation2FlRw()
     {
-        var trainer = new LogicGpFlrwMicroMulticlassTrainer<BinaryClassificationOutput>(10000);
+        var trainer = new LogicGpFlcwMicroMulticlassTrainer<BinaryClassificationOutput>(10000);
 
         GPASSimulation("Simulation2", AppDomain.CurrentDomain.BaseDirectory,
             trainer);
@@ -69,7 +74,7 @@ public sealed class SNPSimulationTests
     [TestMethod]
     public void TestSimulation3FlRw()
     {
-        var trainer = new LogicGpFlrwMicroMulticlassTrainer<BinaryClassificationOutput>(10000);
+        var trainer = new LogicGpFlcwMicroMulticlassTrainer<BinaryClassificationOutput>(10000);
 
         GPASSimulation("Simulation3", AppDomain.CurrentDomain.BaseDirectory,
             trainer);

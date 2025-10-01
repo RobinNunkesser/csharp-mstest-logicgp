@@ -39,7 +39,7 @@ public class BreastCancerWisconsinDiagnosticTests : RealTests
     public void SimulateFlRwMicro()
     {
         var trainer =
-            new LogicGpFlrwMicroMulticlassTrainer<BinaryClassificationOutput>(
+            new LogicGpFlcwMicroMulticlassTrainer<BinaryClassificationOutput>(
                 10000);
         SimulateFlRw(trainer, _data, _lookupData);
     }

@@ -40,7 +40,7 @@ public class IrisTests : RealTests
     public void SimulateFlRwMacro()
     {
         var trainer =
-            new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(
+            new LogicGpFlcwMacroMulticlassTrainer<TernaryClassificationOutput>(
                 10000);
         SimulateFlRw(trainer, _data, _lookupData);
     }
@@ -67,7 +67,7 @@ public class IrisTests : RealTests
     {
         ThreadSafeRandomNetCore.Seed = 42;
 
-        var trainer = new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(10);
+        var trainer = new LogicGpFlcwMacroMulticlassTrainer<TernaryClassificationOutput>(10);
 
 
         var mlContext = ThreadSafeMLContext.LocalMLContext;

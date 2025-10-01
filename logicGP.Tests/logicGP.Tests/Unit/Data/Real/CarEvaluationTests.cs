@@ -25,7 +25,7 @@ public class CarEvaluationTests : RealTests
     {
         ThreadSafeRandomNetCore.Seed = 42;
 
-        var trainer = new LogicGpFlrwMacroMulticlassTrainer<QuaternaryClassificationOutput>(10);
+        var trainer = new LogicGpFlcwMacroMulticlassTrainer<QuaternaryClassificationOutput>(10);
 
         var lookupData = new[]
         {

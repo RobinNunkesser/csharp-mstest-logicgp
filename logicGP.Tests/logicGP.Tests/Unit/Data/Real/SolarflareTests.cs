@@ -26,7 +26,7 @@ public class SolarflareTests : RealTests
         ThreadSafeRandomNetCore.Seed = 42;
 
         var trainer =
-            new LogicGpFlrwMacroMulticlassTrainer<OctonaryClassificationOutput>(
+            new LogicGpFlcwMacroMulticlassTrainer<OctonaryClassificationOutput>(
                 10);
 
         var lookupData = new[]

@@ -42,7 +42,7 @@ public class NationalPollTests : RealTests
     public void SimulateFlRwMacro()
     {
         var trainer =
-            new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(
+            new LogicGpFlcwMacroMulticlassTrainer<TernaryClassificationOutput>(
                 10000);
         SimulateFlRw(trainer, _data, _lookupData);
     }
@@ -54,7 +54,7 @@ public class NationalPollTests : RealTests
         var file = Path.Combine(folder, $"{GetType().Name}_runtime.csv");
         var resultWriter = new StreamWriter(file);
         resultWriter.WriteLine("Generations,TimeMs");
-        var trainer = new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(
+        var trainer = new LogicGpFlcwMacroMulticlassTrainer<TernaryClassificationOutput>(
             10000);
         var stopwatch = new Stopwatch();
         var generations = new int[] { 10000 };//{ 10, 100, 1000, 10000};
@@ -81,7 +81,7 @@ public class NationalPollTests : RealTests
     [TestCategory("FixedSeed")]
     public void TestFlRwMacro()
     {
-        var trainer = new LogicGpFlrwMacroMulticlassTrainer<TernaryClassificationOutput>(
+        var trainer = new LogicGpFlcwMacroMulticlassTrainer<TernaryClassificationOutput>(
             10);
         var testResults = TestFlRw(trainer, _data, _data, _lookupData, 10);
         var metrics = ThreadSafeMLContext.LocalMLContext
