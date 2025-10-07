@@ -41,7 +41,7 @@ public sealed class SNPSimulationTests
     [TestMethod]
     public void TestSimulation1RlRw()
     {
-        var trainer = new LogicGpRlcwMulticlassTrainer<BinaryClassificationOutput>(1000,10000,1.1);
+        var trainer = new LogicGpRlcwMulticlassTrainer<BinaryClassificationOutput>(1000,10000,5,1.1);
 
         GPASSimulation("Simulation1", AppDomain.CurrentDomain.BaseDirectory,
             trainer);

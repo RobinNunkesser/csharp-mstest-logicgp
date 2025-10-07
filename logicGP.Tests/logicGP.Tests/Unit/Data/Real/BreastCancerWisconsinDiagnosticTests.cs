@@ -54,7 +54,7 @@ public class BreastCancerWisconsinDiagnosticTests : RealTests
 
         
         var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var testResults = TestFlRw(trainer, _data, _data, _lookupData, 10);
+        var testResults = TestFlRw(trainer, _data, _data, _lookupData);
         var metrics = mlContext.BinaryClassification
             .Evaluate(testResults);
 

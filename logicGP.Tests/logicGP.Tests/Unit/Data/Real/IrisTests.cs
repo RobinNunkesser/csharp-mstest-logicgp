@@ -71,7 +71,7 @@ public class IrisTests : RealTests
 
 
         var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var testResults = TestFlRw(trainer, _data, _data, _lookupData, 10);
+        var testResults = TestFlRw(trainer, _data, _data, _lookupData);
         PrintFeaturesAndLabels(testResults);
         var metrics = mlContext.MulticlassClassification
             .Evaluate(testResults);
@@ -85,6 +85,6 @@ public class IrisTests : RealTests
         IEstimator<ITransformer> trainer, IDataView lookupIdvMap)
     {
         return _dataset.BuildPipeline(
-            ThreadSafeMLContext.LocalMLContext, ScenarioType.Classification, trainer,true);
+            ThreadSafeMLContext.LocalMLContext,  trainer,ScenarioType.Classification,ProcessingType.FeatureBinningAndCustomLabelMapping);
     }
 }

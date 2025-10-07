@@ -33,7 +33,7 @@ public class HeartDiseaseBinaryTests : RealTests
             new LookupMap<uint>(1)
         };
         var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var testResults = TestFlRw(trainer, _data, _data, lookupData, 10);
+        var testResults = TestFlRw(trainer, _data, _data, lookupData);
         var metrics = mlContext.BinaryClassification
             .Evaluate(testResults);
 

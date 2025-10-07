@@ -11,8 +11,8 @@
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
-        <PackageReference Include="Italbytz.Adapters.Algorithms.EA" Version="9.2.1" />
-        <PackageReference Include="Italbytz.ML.UCIMLR" Version="9.1.2" />
+        <PackageReference Include="Italbytz.Adapters.Algorithms.EA" Version="9.2.4" />
+        <PackageReference Include="Italbytz.ML.UCIMLR" Version="9.2.3" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
         <PackageReference Include="MSTest.TestAdapter" Version="3.1.1"/>
         <PackageReference Include="MSTest.TestFramework" Version="3.1.1"/>

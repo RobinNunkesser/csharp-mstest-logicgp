@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Globalization;
 using Italbytz.AI;
+using Italbytz.EA.StoppingCriterion;
+using Italbytz.EA.Trainer;
 using Italbytz.ML;
 using Microsoft.ML;
 
@@ -20,13 +22,45 @@ public abstract class RealTests
 
     private ITransformer Train<TLabel>(MLContext mlContext,
         IEstimator<ITransformer> generalTrainer, IDataView trainData,
-        LookupMap<TLabel>[] lookupData, int generations = 100)
+        LookupMap<TLabel>[] lookupData)
     {
         var lookupIdvMap = mlContext.Data.LoadFromEnumerable(lookupData);
         var pipeline = GetPipeline(generalTrainer, lookupIdvMap);
         return pipeline.Fit(trainData);
     }
 
+    public void Benchmark<TLabel>(String name,IEstimator<ITransformer> trainer, IDataView trainData,IDataView testData, LookupMap<TLabel>[] lookupData)
+    {
+        var folder = AppDomain.CurrentDomain.BaseDirectory;
+        var file = Path.Combine(folder, $"{name}_runtime.csv");
+        var resultWriter = new StreamWriter(file);
+        resultWriter.WriteLine("Trainer,TimeMs");
+        var stopwatch = new Stopwatch();
+        var generations = 10000;
+        var magicNumbers = new int[] { 42,  3, 7, 13, 21, 42, 64, 77, 88, 99, 123 };
+            foreach (var magicNumber in magicNumbers)
+            {
+                ThreadSafeRandomNetCore.Seed = magicNumber;
+                ThreadSafeMLContext.Seed = magicNumber;
+                stopwatch.Reset();
+                stopwatch.Start();
+                var model = TestFlRw<TLabel>(trainer, trainData, testData, lookupData);
+                stopwatch.Stop();
+                if (trainer is IInterpretableTrainer interpretableTrainer)
+                {
+                    Console.WriteLine(interpretableTrainer.Model.ToString());
+                }
+                Console.WriteLine($"{name}\t{stopwatch.ElapsedMilliseconds}ms");
+                var metrics = new MLContext().MulticlassClassification
+                    .Evaluate(model);
+                Console.WriteLine($"MacroAccuracy: {metrics.MacroAccuracy.ToString(CultureInfo.InvariantCulture)}");
+                resultWriter.WriteLine(
+                    $"{name},{stopwatch.ElapsedMilliseconds}");
+                resultWriter.Flush();
+            
+        }
+        resultWriter.Dispose();
+    }
     
     protected void SaveCvSplit(
         IDataView data, string fileName)
@@ -55,11 +89,10 @@ public abstract class RealTests
     protected IDataView TestFlRw<TLabel>(
         IEstimator<ITransformer> generalTrainer,
         IDataView trainData, IDataView testData,
-        LookupMap<TLabel>[] lookupData, int generations = 100)
+        LookupMap<TLabel>[] lookupData)
     {
         var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var mlModel = Train(mlContext, generalTrainer, trainData, lookupData,
-            generations);
+        var mlModel = Train(mlContext, generalTrainer, trainData, lookupData);
         Assert.IsNotNull(mlModel);
         return mlModel.Transform(testData);
     }
@@ -92,8 +125,7 @@ public abstract class RealTests
             var trainData = trainTestSplit.TrainSet;
             var testData = trainTestSplit.TestSet;
 
-            var mlModel = Train(mlContext, trainer, trainData, lookupData,
-                generations);
+            var mlModel = Train(mlContext, trainer, trainData, lookupData);
             Assert.IsNotNull(mlModel);
             /*var chosenIndividual =
                 ((LogicGpTrainerBase<ITransformer>)trainer)

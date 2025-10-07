@@ -41,7 +41,7 @@ public class SolarflareTests : RealTests
             new LookupMap<uint>(8)
         };
         var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var testResults = TestFlRw(trainer, _data, _data, lookupData, 10);
+        var testResults = TestFlRw(trainer, _data, _data, lookupData);
         var metrics = mlContext.MulticlassClassification
             .Evaluate(testResults);
 
