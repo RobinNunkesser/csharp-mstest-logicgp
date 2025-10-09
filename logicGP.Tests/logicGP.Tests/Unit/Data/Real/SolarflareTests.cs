@@ -12,11 +12,29 @@ public class SolarflareTests : RealTests
 {
     private readonly IDataView _data;
     private readonly IDataset _dataset;
-
+    LookupMap<uint>[] _lookupData = new[]
+    {
+        new LookupMap<uint>(0),
+        new LookupMap<uint>(1),
+        new LookupMap<uint>(2),
+        new LookupMap<uint>(3),
+        new LookupMap<uint>(4),
+        new LookupMap<uint>(5),
+        new LookupMap<uint>(6),
+        new LookupMap<uint>(8)
+    };
     public SolarflareTests()
     {
         _dataset = Italbytz.ML.Data.Data.SolarFlare1;
         _data = _dataset.DataView;
+    }
+
+    [TestMethod]
+    public void TestFlRwMacroRuntime()
+    {
+        var trainer = new LogicGpFlcwMacroMulticlassTrainer<OctonaryClassificationOutput>(
+            10000);
+        Benchmark("SF",trainer,_data,_data,_lookupData);
     }
 
     [TestMethod]
@@ -29,19 +47,9 @@ public class SolarflareTests : RealTests
             new LogicGpFlcwMacroMulticlassTrainer<OctonaryClassificationOutput>(
                 10);
 
-        var lookupData = new[]
-        {
-            new LookupMap<uint>(0),
-            new LookupMap<uint>(1),
-            new LookupMap<uint>(2),
-            new LookupMap<uint>(3),
-            new LookupMap<uint>(4),
-            new LookupMap<uint>(5),
-            new LookupMap<uint>(6),
-            new LookupMap<uint>(8)
-        };
+        
         var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var testResults = TestFlRw(trainer, _data, _data, lookupData);
+        var testResults = TestFlRw(trainer, _data, _data, _lookupData);
         var metrics = mlContext.MulticlassClassification
             .Evaluate(testResults);
 

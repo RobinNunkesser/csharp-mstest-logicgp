@@ -14,12 +14,26 @@ public class BalanceScaleTests : RealTests
 {
     private readonly IDataView _data;
     private readonly IDataset _dataset;
-
+    LookupMap<string>[] _lookupData = new[]
+    {
+        new LookupMap<string>("B"),
+        new LookupMap<string>("R"),
+        new LookupMap<string>("L")
+    };
     public BalanceScaleTests()
     {
         _dataset = Italbytz.ML.Data.Data.BalanceScale;
         _data = _dataset.DataView;
     }
+    
+    [TestMethod]
+    public void TestFlRwMacroRuntime()
+    {
+        var trainer = new LogicGpFlcwMacroMulticlassTrainer<TernaryClassificationOutput>(
+            10000);
+        Benchmark("BS",trainer,_data,_data,_lookupData);
+    }
+
 
     [TestMethod]
     [TestCategory("FixedSeed")]
@@ -29,14 +43,9 @@ public class BalanceScaleTests : RealTests
 
         var trainer = new LogicGpFlcwMacroMulticlassTrainer<TernaryClassificationOutput>(10);
 
-        var lookupData = new[]
-        {
-            new LookupMap<string>("B"),
-            new LookupMap<string>("R"),
-            new LookupMap<string>("L")
-        };
+        
         var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var testResults = TestFlRw(trainer, _data, _data, lookupData);
+        var testResults = TestFlRw(trainer, _data, _data, _lookupData);
         var metrics = mlContext.MulticlassClassification
             .Evaluate(testResults);
 

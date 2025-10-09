@@ -12,6 +12,13 @@ public class CarEvaluationTests : RealTests
 {
     private readonly IDataView _data;
     private readonly IDataset _dataset;
+    private LookupMap<string>[] _lookupData = new[]
+    {
+        new LookupMap<string>("unacc"),
+        new LookupMap<string>("acc"),
+        new LookupMap<string>("good"),
+        new LookupMap<string>("vgood")
+    };
 
     public CarEvaluationTests()
     {
@@ -20,6 +27,14 @@ public class CarEvaluationTests : RealTests
     }
 
     [TestMethod]
+    public void TestFlRwMacroRuntime()
+    {
+        var trainer = new LogicGpFlcwMacroMulticlassTrainer<TernaryClassificationOutput>(
+            10000);
+        Benchmark("Car_FlRwMacro",trainer,_data,_data,_lookupData);
+    }
+    
+    [TestMethod]
     [TestCategory("FixedSeed")]
     public void TestFlRw()
     {
@@ -27,15 +42,9 @@ public class CarEvaluationTests : RealTests
 
         var trainer = new LogicGpFlcwMacroMulticlassTrainer<QuaternaryClassificationOutput>(10);
 
-        var lookupData = new[]
-        {
-            new LookupMap<string>("unacc"),
-            new LookupMap<string>("acc"),
-            new LookupMap<string>("good"),
-            new LookupMap<string>("vgood")
-        };
+        
         var mlContext = ThreadSafeMLContext.LocalMLContext;
-        var testResults = TestFlRw(trainer, _data, _data, lookupData);
+        var testResults = TestFlRw(trainer, _data, _data, _lookupData);
         var metrics = mlContext.MulticlassClassification
             .Evaluate(testResults);
 

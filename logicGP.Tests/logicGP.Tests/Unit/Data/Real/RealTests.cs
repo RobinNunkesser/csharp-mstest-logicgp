@@ -51,9 +51,9 @@ public abstract class RealTests
                     Console.WriteLine(interpretableTrainer.Model.ToString());
                 }
                 Console.WriteLine($"{name}\t{stopwatch.ElapsedMilliseconds}ms");
-                var metrics = new MLContext().MulticlassClassification
+                /*var metrics = new MLContext().MulticlassClassification
                     .Evaluate(model);
-                Console.WriteLine($"MacroAccuracy: {metrics.MacroAccuracy.ToString(CultureInfo.InvariantCulture)}");
+                Console.WriteLine($"MacroAccuracy: {metrics.MacroAccuracy.ToString(CultureInfo.InvariantCulture)}");*/
                 resultWriter.WriteLine(
                     $"{name},{stopwatch.ElapsedMilliseconds}");
                 resultWriter.Flush();
